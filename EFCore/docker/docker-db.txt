@@ -1,0 +1,16 @@
+docker container run --name postgres \
+-p 5432:5432 \
+-v `pwd`/Projetos/Banco/PostgreSQL:/var/lib/postgresql/data \
+-e 'POSTGRES_DB=ef_core' \
+-e 'POSTGRES_USER=admin' \
+-e 'POSTGRES_PASSWORD=admin' \
+--network postgres-db \
+-d postgres:alpine
+
+docker run -p 80:80 \
+    -e 'PGADMIN_DEFAULT_EMAIL=thiagoz@gmail.com' \
+    -e 'PGADMIN_DEFAULT_PASSWORD=@bc123ASD' \
+    --network postgres-db \
+    -d dpage/pgadmin4
+
+docker network create -d bridge postgres-db
